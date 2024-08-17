@@ -1,8 +1,10 @@
 import pygame
 
+# Quantidade de pixels no movimento do player
 speed = 5
 
-def move(x, y, screen_width, screen_height, square_size):
+# Função para movimentar o player na tela
+def move_player_in_screen(x, y, screen_width, screen_height, square_size):
     keys = pygame.key.get_pressed()
     
     if keys[pygame.K_LEFT] and x - speed > 0:

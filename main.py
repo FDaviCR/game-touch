@@ -1,7 +1,7 @@
 import pygame
 import sys
 
-from movePlayer import move
+from movePlayer import move_player_in_screen
 
 # Inicializa o Pygame
 pygame.init()
@@ -34,21 +34,18 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-    # Captura as teclas pressionadas
-    
-
-    # Movimenta o quadrado
-    updatePositionPlayer = move(x, y, screen_width, screen_height, square_size)
+            
+    # Movimentos do player
+    updatePositionPlayer = move_player_in_screen(x, y, screen_width, screen_height, square_size)
     x = updatePositionPlayer[0]
     y = updatePositionPlayer[1]
         
-    # Atualiza a tela
+    # Atualizar a tela
     pygame.display.flip()
 
-    # Controla a taxa de quadros (FPS)
+    # Controlar a taxa de quadros (FPS)
     pygame.time.Clock().tick(60)
 
-# Encerra o Pygame
+# Encerrar o Pygame
 pygame.quit()
 sys.exit()
