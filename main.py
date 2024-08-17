@@ -1,7 +1,9 @@
 import pygame
 import sys
+import time
 
-from movePlayer import move_player_in_screen
+from player import move_player_in_screen
+from bots import create_bot
 
 # Inicializa o Pygame
 pygame.init()
@@ -29,6 +31,9 @@ while running:
 
     # Desenha o quadrado na nova posição
     pygame.draw.rect(screen, player, [x, y, square_size, square_size])
+    
+    # Desenha um novo bot
+    create_bot(screen, screen_height, screen_width)
 
     # Lida com eventos
     for event in pygame.event.get():
