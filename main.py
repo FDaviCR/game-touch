@@ -25,6 +25,8 @@ y = screen_height // 2 - square_size // 2  # posição inicial y (centro da tela
 
 # Loop principal
 running = True
+ultimo_tempo = time.time()
+
 while running:
     # Preenche a cor de fundo da tela
     screen.fill(background)
@@ -32,13 +34,15 @@ while running:
     # Desenha o quadrado na nova posição
     pygame.draw.rect(screen, player, [x, y, square_size, square_size])
     
-    # Desenha um novo bot
-    create_bot(screen, screen_height, screen_width)
-
     # Lida com eventos
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        
+    # Desenha um novo bot        
+    if time.time() - ultimo_tempo > 5:
+        create_bot(screen, screen_height, screen_width)
+        ultimo_tempo = time.time()
             
     # Movimentos do player
     updatePositionPlayer = move_player_in_screen(x, y, screen_width, screen_height, square_size)
