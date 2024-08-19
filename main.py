@@ -1,60 +1,71 @@
 import pygame
-import sys
+import random
 import time
 
-from player import move_player_in_screen
-from bots import create_bot
+from player import Player
+from bot import Bot
 
-# Inicializa o Pygame
+# Inicializar o Pygame
 pygame.init()
 
-# Configuração da tela
-screen_width = 1000
-screen_height = 750
-screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Touch')
+# Definir as dimensões da tela
+largura, altura = 800, 600
+tela = pygame.display.set_mode((largura, altura))
 
 # Definir cores
-background = (0, 0, 0)
-player = (255, 0, 0)
+COR_FUNDO = (30, 30, 30)
+COR_PLAYER = (0, 255, 0)
+COR_BOT = (255, 0, 0)
 
-# Configuração do player
-square_size = 25
-x = screen_width // 2 - square_size // 2  # posição inicial x (centro da tela)
-y = screen_height // 2 - square_size // 2  # posição inicial y (centro da tela)
+# Definir a taxa de frames por segundo (FPS)
+FPS = 60
+
+# Criar o player
+player = Player(largura // 2, altura // 2)
+
+# Lista para armazenar os bots
+bots = []
+
+# Variável para controlar o tempo de criação dos bots
+ultimo_tempo_bot = time.time()
 
 # Loop principal
-running = True
-ultimo_tempo = time.time()
+executando = True
+clock = pygame.time.Clock()
 
-while running:
-    # Preenche a cor de fundo da tela
-    screen.fill(background)
-
-    # Desenha o quadrado na nova posição
-    pygame.draw.rect(screen, player, [x, y, square_size, square_size])
+while executando:
+    clock.tick(FPS)
     
-    # Lida com eventos
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        
-    # Desenha um novo bot        
-    if time.time() - ultimo_tempo > 5:
-        create_bot(screen, screen_height, screen_width)
-        ultimo_tempo = time.time()
-            
-    # Movimentos do player
-    updatePositionPlayer = move_player_in_screen(x, y, screen_width, screen_height, square_size)
-    x = updatePositionPlayer[0]
-    y = updatePositionPlayer[1]
-        
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            executando = False
+
+    # Capturar teclas pressionadas
+    teclas = pygame.key.get_pressed()
+
+    # Mover o player
+    player.mover(teclas, largura, altura)
+    
+    # Mover bots
+    for bot in bots:
+        bot.mover(largura, altura)
+
+    # Criar um novo bot a cada 3 segundos
+    if time.time() - ultimo_tempo_bot > 3:
+        novo_bot = Bot(random.randint(0, largura-50), random.randint(0, altura-50), player.velocidade * 2)
+        bots.append(novo_bot)
+        ultimo_tempo_bot = time.time()
+    
+    # Preencher a tela com a cor de fundo
+    tela.fill(COR_FUNDO)
+
+    # Desenhar o player e bots
+    player.desenhar(tela)
+    for bot in bots:
+        bot.desenhar(tela)
+
     # Atualizar a tela
     pygame.display.flip()
 
-    # Controlar a taxa de quadros (FPS)
-    pygame.time.Clock().tick(60)
-
-# Encerrar o Pygame
+# Finalizar o Pygame
 pygame.quit()
-sys.exit()

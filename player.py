@@ -1,21 +1,23 @@
 import pygame
 
-# Quantidade de pixels no movimento do player
-speed = 5
+class Player:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.velocidade = 5
+        self.largura = 50
+        self.altura = 50
+        self.cor_player = (0, 255, 0)
 
-# Função para movimentar o player na tela
-def move_player_in_screen(x, y, screen_width, screen_height, square_size):
-    keys = pygame.key.get_pressed()
-    
-    if keys[pygame.K_LEFT] and x - speed > 0:
-        x -= speed  # Move para a esquerda
-    if keys[pygame.K_RIGHT] and x + speed < screen_width - square_size:
-        x += speed  # Move para a direita
-    if keys[pygame.K_UP] and y - speed > 0:
-        y -= speed  # Move para cima
-    if keys[pygame.K_DOWN] and y + speed < screen_height - square_size:
-        y += speed  # Move para baixo
-    
-    return [x,y]
-        
-    
+    def desenhar(self, tela):
+        pygame.draw.rect(tela, self.cor_player, (self.x, self.y, self.largura, self.altura))
+
+    def mover(self, teclas, largura, altura):
+        if teclas[pygame.K_LEFT] and self.x - self.velocidade > 0:
+            self.x -= self.velocidade
+        if teclas[pygame.K_RIGHT] and self.x + self.largura + self.velocidade < largura:
+            self.x += self.velocidade
+        if teclas[pygame.K_UP] and self.y - self.velocidade > 0:
+            self.y -= self.velocidade
+        if teclas[pygame.K_DOWN] and self.y + self.altura + self.velocidade < altura:
+            self.y += self.velocidade
