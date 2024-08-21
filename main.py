@@ -9,7 +9,7 @@ from bot import Bot
 pygame.init()
 
 # Definir as dimensões da tela
-largura, altura = 800, 600
+largura, altura = 1000, 700
 tela = pygame.display.set_mode((largura, altura))
 
 # Definir cores
@@ -51,8 +51,8 @@ while executando:
         bot.mover(largura, altura)
 
     # Criar um novo bot a cada 3 segundos
-    if time.time() - ultimo_tempo_bot > 3:
-        novo_bot = Bot(random.randint(0, largura-50), random.randint(0, altura-50), player.velocidade * 2)
+    if (time.time() - ultimo_tempo_bot > 3) and len(bots) <= 5:
+        novo_bot = Bot(random.randint(0, largura-50), random.randint(0, altura-50), player.velocidade * 5)
         bots.append(novo_bot)
         ultimo_tempo_bot = time.time()
     

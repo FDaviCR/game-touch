@@ -6,8 +6,8 @@ class Bot:
         self.x = x
         self.y = y
         self.velocidade = velocidade
-        self.largura = 50
-        self.altura = 50
+        self.largura = 10
+        self.altura = 10
         self.cor_bot = (255, 0, 0)
 
     def desenhar(self, tela):

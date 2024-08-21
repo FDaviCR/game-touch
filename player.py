@@ -5,12 +5,14 @@ class Player:
         self.x = x
         self.y = y
         self.velocidade = 5
-        self.largura = 50
-        self.altura = 50
+        self.largura = 10
+        self.altura = 10
         self.cor_player = (0, 255, 0)
+        self.raio_player = 10
 
     def desenhar(self, tela):
         pygame.draw.rect(tela, self.cor_player, (self.x, self.y, self.largura, self.altura))
+        #pygame.draw.circle(tela, self.cor_player, [self.x, self.y], self.raio_player)
 
     def mover(self, teclas, largura, altura):
         if teclas[pygame.K_LEFT] and self.x - self.velocidade > 0:
