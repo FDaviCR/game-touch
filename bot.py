@@ -1,25 +1,19 @@
 import pygame
 import random
 
-class Bot:
-    def __init__(self, x, y, velocidade):
-        self.x = x
-        self.y = y
-        self.velocidade = velocidade
-        self.largura = 10
-        self.altura = 10
-        self.cor_bot = (255, 0, 0)
+COR_BOT = (255, 0, 0)
 
-    def desenhar(self, tela):
-        pygame.draw.rect(tela, self.cor_bot, (self.x, self.y, self.largura, self.altura))
+# Definir a classe Bot
+class Bot(pygame.sprite.Sprite):
+    def __init__(self, x, y, nome):
+        super().__init__()
+        self.image = pygame.Surface((50, 50))
+        self.image.fill(COR_BOT)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
+        self.nome = nome  # Nome exclusivo para cada bot
 
-    def mover(self, largura, altura):
-        direcao = random.choice(['left', 'right', 'up', 'down'])
-        if direcao == 'left' and self.x - self.velocidade > 0:
-            self.x -= self.velocidade
-        if direcao == 'right' and self.x + self.largura + self.velocidade < largura:
-            self.x += self.velocidade
-        if direcao == 'up' and self.y - self.velocidade > 0:
-            self.y -= self.velocidade
-        if direcao == 'down' and self.y + self.altura + self.velocidade < altura:
-            self.y += self.velocidade
+    def update(self):
+        # Movimento simples do bot (exemplo)
+        self.rect.x += random.choice([-2, 2])
+        self.rect.y += random.choice([-2, 2])

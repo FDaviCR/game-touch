@@ -9,22 +9,22 @@ from bot import Bot
 pygame.init()
 
 # Definir as dimensões da tela
-largura, altura = 1000, 700
+largura, altura = 800, 600
 tela = pygame.display.set_mode((largura, altura))
 
-# Definir cores
+# Definir as cores
 COR_FUNDO = (30, 30, 30)
-COR_PLAYER = (0, 255, 0)
-COR_BOT = (255, 0, 0)
 
-# Definir a taxa de frames por segundo (FPS)
-FPS = 60
+# Criar instâncias
+player = Player()
 
-# Criar o player
-player = Player(largura // 2, altura // 2)
-
-# Lista para armazenar os bots
+# Gerar vários bots e adicioná-los a um array
 bots = []
+
+# Criar grupos de sprites
+todos_sprites = pygame.sprite.Group()
+todos_sprites.add(player)
+#todos_sprites.add(bots)  # Adicionar todos os bots ao grupo de sprites
 
 # Variável para controlar o tempo de criação dos bots
 ultimo_tempo_bot = time.time()
@@ -34,35 +34,30 @@ executando = True
 clock = pygame.time.Clock()
 
 while executando:
-    clock.tick(FPS)
+    clock.tick(60)
     
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             executando = False
 
-    # Capturar teclas pressionadas
-    teclas = pygame.key.get_pressed()
+    # Atualizar os sprites
+    todos_sprites.add(bots)
+    todos_sprites.update()
 
-    # Mover o player
-    player.mover(teclas, largura, altura)
-    
-    # Mover bots
+    # Verificar colisões entre o player e cada bot
     for bot in bots:
-        bot.mover(largura, altura)
-
+        if player.rect.colliderect(bot.rect):
+            print(f"Colisão com: {bot.nome}")
+    
     # Criar um novo bot a cada 3 segundos
-    if (time.time() - ultimo_tempo_bot > 3) and len(bots) <= 5:
-        novo_bot = Bot(random.randint(0, largura-50), random.randint(0, altura-50), player.velocidade * 5)
+    if (time.time() - ultimo_tempo_bot > 3) and len(bots) < 5:
+        novo_bot = Bot(random.randint(0, largura-50), random.randint(0, altura-50), str(time.time()))
         bots.append(novo_bot)
         ultimo_tempo_bot = time.time()
-    
-    # Preencher a tela com a cor de fundo
-    tela.fill(COR_FUNDO)
 
-    # Desenhar o player e bots
-    player.desenhar(tela)
-    for bot in bots:
-        bot.desenhar(tela)
+    # Desenhar o fundo e os sprites
+    tela.fill(COR_FUNDO)
+    todos_sprites.draw(tela)
 
     # Atualizar a tela
     pygame.display.flip()
