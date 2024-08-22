@@ -7,10 +7,10 @@ COR_PLAYER = (0, 255, 0)
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.Surface((50, 50))
+        self.image = pygame.Surface((10, 10))
         self.image.fill(COR_PLAYER)
         self.rect = self.image.get_rect()
-        self.rect.topleft = (100, 100)
+        self.rect.topleft = (500, 375)
 
     def update(self):
         teclas = pygame.key.get_pressed()

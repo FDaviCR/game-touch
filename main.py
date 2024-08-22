@@ -9,7 +9,7 @@ from bot import Bot
 pygame.init()
 
 # Definir as dimensões da tela
-largura, altura = 800, 600
+largura, altura = 1000, 750
 tela = pygame.display.set_mode((largura, altura))
 
 # Definir as cores
@@ -48,6 +48,9 @@ while executando:
     for bot in bots:
         if player.rect.colliderect(bot.rect):
             print(f"Colisão com: {bot.nome}")
+            todos_sprites.remove(bot)
+            bots.remove(bot)
+            
     
     # Criar um novo bot a cada 3 segundos
     if (time.time() - ultimo_tempo_bot > 3) and len(bots) < 5:
