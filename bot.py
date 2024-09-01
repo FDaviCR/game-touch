@@ -19,5 +19,3 @@ class Bot(pygame.sprite.Sprite):
         if(new_x + self.rect.x <= largura and self.rect.y + new_y <= altura and new_x + self.rect.x >= 0 and self.rect.y + new_y >= 0):
             self.rect.x += new_x
             self.rect.y += new_y
-            
-            print(self.rect.x, self.rect.y)
