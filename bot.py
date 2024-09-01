@@ -3,7 +3,6 @@ import random
 
 COR_BOT = (255, 0, 0)
 
-# Definir a classe Bot
 class Bot(pygame.sprite.Sprite):
     def __init__(self, x, y, nome):
         super().__init__()
@@ -11,9 +10,8 @@ class Bot(pygame.sprite.Sprite):
         self.image.fill(COR_BOT)
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
-        self.nome = nome  # Nome exclusivo para cada bot
+        self.nome = nome  
 
     def update(self):
-        # Movimento simples do bot (exemplo)
-        self.rect.x += random.choice([-2, 2])
-        self.rect.y += random.choice([-2, 2])
+        self.rect.x += random.choice([-20, 20])
+        self.rect.y += random.choice([-20, 20])

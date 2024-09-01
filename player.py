@@ -1,9 +1,7 @@
 import pygame
-import random
 
 COR_PLAYER = (0, 255, 0)
 
-# Definir a classe Player
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
