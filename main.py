@@ -32,7 +32,7 @@ while executando:
             executando = False
 
     todos_sprites.add(bots)
-    todos_sprites.update()
+    todos_sprites.update(largura, altura)
 
     for bot in bots:
         if player.rect.colliderect(bot.rect):
@@ -41,7 +41,7 @@ while executando:
             bots.remove(bot)
             
     
-    if (time.time() - ultimo_tempo_bot > 3) and len(bots) < 5:
+    if (time.time() - ultimo_tempo_bot > 3) and len(bots) < 1:
         novo_bot = Bot(random.randint(0, largura-50), random.randint(0, altura-50), str(time.time()))
         bots.append(novo_bot)
         ultimo_tempo_bot = time.time()

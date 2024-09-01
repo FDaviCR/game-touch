@@ -12,6 +12,12 @@ class Bot(pygame.sprite.Sprite):
         self.rect.topleft = (x, y)
         self.nome = nome  
 
-    def update(self):
-        self.rect.x += random.choice([-20, 20])
-        self.rect.y += random.choice([-20, 20])
+    def update(self, largura, altura):
+        new_x = random.choice([-20, 20])
+        new_y = random.choice([-20, 20])
+        
+        if(new_x + self.rect.x <= largura and self.rect.y + new_y <= altura and new_x + self.rect.x >= 0 and self.rect.y + new_y >= 0):
+            self.rect.x += new_x
+            self.rect.y += new_y
+            
+            print(self.rect.x, self.rect.y)

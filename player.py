@@ -10,7 +10,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (500, 375)
 
-    def update(self):
+    def update(self, altura, largura):
         teclas = pygame.key.get_pressed()
         if teclas[pygame.K_LEFT]:
             self.rect.x -= 5
