@@ -9,6 +9,7 @@ pygame.init()
 
 largura, altura = 1000, 750
 tela = pygame.display.set_mode((largura, altura))
+points = 0
 
 COR_FUNDO = (30, 30, 30)
 
@@ -36,7 +37,8 @@ while executando:
 
     for bot in bots:
         if player.rect.colliderect(bot.rect):
-            print(f"Colisão com: {bot.nome}")
+            points += 1
+            print(f"Pontos: {points}")
             todos_sprites.remove(bot)
             bots.remove(bot)
             
