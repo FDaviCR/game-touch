@@ -7,12 +7,12 @@ from bot import Bot
 
 pygame.init()
 
-largura, altura = 1000, 750
+largura, altura = 1000, 600
 tela = pygame.display.set_mode((largura, altura))
 points = 0
 
 COR_FUNDO = (30, 30, 30)
-
+WHITE = (255, 255, 255)
 player = Player()
 
 bots = []
@@ -24,6 +24,13 @@ ultimo_tempo_bot = time.time()
 
 executando = True
 clock = pygame.time.Clock()
+
+font = pygame.font.SysFont("Comic Sans", 25)
+score = 0
+
+def showScore():
+    scoreText = font.render("Pontos: " + str(score), True, WHITE)
+    tela.blit(scoreText, (150, 0))
 
 while executando:
     clock.tick(60)
@@ -37,8 +44,7 @@ while executando:
 
     for bot in bots:
         if player.rect.colliderect(bot.rect):
-            points += 1
-            print(f"Pontos: {points}")
+            score += 1
             todos_sprites.remove(bot)
             bots.remove(bot)
             
@@ -51,6 +57,7 @@ while executando:
     tela.fill(COR_FUNDO)
     todos_sprites.draw(tela)
 
+    showScore()
     pygame.display.flip()
 
 pygame.quit()
